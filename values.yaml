@@ -8,6 +8,9 @@ backstage:
     repository: ""
     tag: ""
 
+container:
+  name: ""
+
 replicaCount: 1
 
 image:

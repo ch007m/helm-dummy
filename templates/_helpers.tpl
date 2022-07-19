@@ -82,10 +82,17 @@ Return the proper image name
 {{- end -}}
 
 {{/*
+{{- define "dummy.container" -}}
+{{- required "Name of container is required" .Values.container.name }}
+{{- end }}
+*/}}
+{{- define "dummy.container" -}}
+{{- "toto" -}}
+{{- end }}
+
+{{/*
 Check the required fields
 */}}
-{{- define "backstage.image" -}}
-{{- required "The repository name of the image is required (e.g. my-backstage:tag | docker.io/my-backstage:tag) !" .Values.backstage.image.repository -}}
-{{- required "The image tag is required (e.g my-backstage:tag | docker.io/my-backstage:tag) !" .Values.backstage.image.tag -}}
-{{ include "common.images.image" (dict "imageRoot" .Values.backstage.image "global" .Values.global) }}
+{{- define "backstage.image" -}}{{- $imageRepository := required "The repository name of the image is required (e.g. my-backstage:tag | docker.io/my-backstage:tag) !" .Values.backstage.image.repository -}}{{- $imageTag := required "The image tag is required (e.g my-backstage:tag | docker.io/my-backstage:tag) !" .Values.backstage.image.tag -}}
+{{- include "common.images.image" (dict "imageRoot" .Values.backstage.image "global" .Values.global) -}}
 {{- end -}}
