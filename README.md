@@ -8,7 +8,7 @@ helm template --dry-run --debug ./ \
   --set backstage.image.tag=1.0
 ```
 
-Helm will rendre then the image of the Deployment as such
+Helm will render then the k8s Deployment resource as such
 ```
 install.go:178: [debug] Original chart version: ""
 install.go:195: [debug] CHART PATH: /Users/cmoullia/temp/dummy
@@ -35,8 +35,9 @@ spec:
             {}
           image: my-backstage1.0my-backstage:1.0
 ```
-We can see that the image name populated `my-backstage1.0my-backstage:1.0` includes the 2 fields part of the `{{-required ....-}}` block
-and not the return of the `{{ include "common.images.image" (dict "imageRoot" .Values.backstage.image "global" .Values.global) }}`
+As you can see the image name populated `my-backstage1.0my-backstage:1.0` includes the 2 fields part of the `{{-required ....-}}` block
+and do not return only the following block `{{ include "common.images.image" (dict "imageRoot" .Values.backstage.image "global" .Values.global) }}`
+as declared within the `_helpers.tpl`.
 
 ```text
 {{/*
